@@ -1,60 +1,30 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { API_BASE } from '../App'
+import React from 'react'
 
 export default function DashboardPage() {
-  const [portfolios, setPortfolios] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
-  const token = localStorage.getItem('token')
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const response = await axios.get(`${API_BASE}/portfolios`, {
-          headers: { Authorization: `Bearer ${token}` }
-        })
-        setPortfolios(response.data)
-      } catch (err) {
-        setError(err.message)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetch()
-  }, [token])
-
   return (
     <div className="p-6 space-y-8">
       <div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-1">Welcome to VesselIQ</p>
+        <p className="text-gray-600 dark:text-gray-400 mt-1">Vessel Acquisition Analysis Platform</p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">Total Portfolios</p>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">{portfolios.length}</p>
+
+      <div className="bg-white dark:bg-gray-800 rounded-lg p-8 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Welcome to VesselIQ</h2>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">
+          A professional platform for analyzing vessel acquisition deals with detailed financial metrics and investor portfolios.
+        </p>
+        
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Features (Coming Soon)</h3>
+          <ul className="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2">
+            <li>Create and manage vessel acquisition portfolios</li>
+            <li>Calculate IRR, NPV, MOIC, and payback periods</li>
+            <li>Multiple financing scenarios (bank loans, sale & leaseback)</li>
+            <li>Investor equity distribution tracking</li>
+            <li>Export analysis to PDF and Excel</li>
+            <li>Sensitivity analysis and scenario modeling</li>
+          </ul>
         </div>
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">Status</p>
-          <p className="text-3xl font-bold text-green-600 mt-2">✓ Active</p>
-        </div>
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-          <p className="text-gray-600 dark:text-gray-400 text-sm">API Connection</p>
-          <p className="text-3xl font-bold text-blue-600 mt-2">✓ Connected</p>
-        </div>
-      </div>
-      <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Portfolios</h2>
-        {loading && <p className="text-gray-500 dark:text-gray-400">Loading...</p>}
-        {error && <p className="text-red-600">Error: {error}</p>}
-        {!loading && portfolios.length === 0 && <p className="text-gray-500 dark:text-gray-400">No portfolios yet.</p>}
-        {portfolios.map((p) => (
-          <div key={p.id} className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 mb-2">
-            <h3 className="font-semibold text-gray-900 dark:text-white">{p.name}</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{p.description || '—'}</p>
-          </div>
-        ))}
       </div>
     </div>
   )
