@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import DashboardPage from './pages/DashboardPage'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
@@ -18,17 +19,19 @@ function App() {
   }
 
   return (
-    <div className={isDark ? 'dark' : ''}>
-      <div className="flex h-screen bg-white dark:bg-gray-900">
-        <Sidebar />
-        <div className="flex-1 flex flex-col">
-          <Navbar isDark={isDark} onToggleDarkMode={toggleDarkMode} />
-          <main className="flex-1 overflow-auto">
-            <DashboardPage />
-          </main>
+    <BrowserRouter>
+      <div className={isDark ? 'dark' : ''}>
+        <div className="flex h-screen bg-white dark:bg-gray-900">
+          <Sidebar />
+          <div className="flex-1 flex flex-col">
+            <Navbar isDark={isDark} onToggleDarkMode={toggleDarkMode} />
+            <main className="flex-1 overflow-auto">
+              <DashboardPage />
+            </main>
+          </div>
         </div>
       </div>
-    </div>
+    </BrowserRouter>
   )
 }
 
